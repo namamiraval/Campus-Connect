@@ -8,24 +8,45 @@
 <!-- Google Font -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
-<!-- FontAwesome CDN (GitHub Pages Safe) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- FontAwesome -->
+<link rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
+/* ---------- BASE ---------- */
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(180deg, #e6f0ff, #f9fbff);
-  color: #222;
+  background: var(--bg);
+  color: var(--text);
   display: flex;
   min-height: 100vh;
   overflow-x: hidden;
+  transition: 0.3s ease;
 }
 
-/* Sidebar */
+/* Light Mode Variables */
+:root {
+  --bg: #e6f0ff;
+  --bg-card: #ffffff;
+  --text: #222;
+  --accent: #004aad;
+  --yellow: #ffd700;
+}
+
+/* Dark Mode Variables */
+.dark-mode {
+  --bg: #0c0c0c;
+  --bg-card: #1a1a1a;
+  --text: #eaeaea;
+  --accent: #1e90ff;
+  --yellow: #ffea00;
+}
+
+/* ---------- SIDEBAR ---------- */
 .sidebar {
   width: 60px;
-  background: #004aad;
+  background: var(--accent);
   color: white;
   display: flex;
   flex-direction: column;
@@ -35,37 +56,46 @@ body {
   position: fixed;
   height: 100%;
 }
+
 .sidebar i {
-  font-size: 24px;
+  font-size: 22px;
   margin: 20px 0;
   cursor: pointer;
   transition: 0.3s;
 }
-.sidebar i:hover { color: #ffd700; }
+.sidebar i:hover { color: var(--yellow); }
 
-/* Main content */
+/* ---------- MAIN AREA ---------- */
 .main {
   margin-left: 70px;
   flex: 1;
   padding: 20px;
-  overflow-y: auto;
-  transition: 0.4s ease-in-out;
+  display: none;
+  animation: fadeIn 0.6s ease;
 }
 
-/* Header */
+#homePage { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- HEADER ---------- */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 25px;
 }
+
 .header h2 {
-  font-size: 1.6em;
-  color: #004aad;
+  color: var(--accent);
 }
+
 .header button {
-  background: #ffd700;
-  color: #004aad;
+  background: var(--yellow);
+  color: var(--accent);
   border: none;
   padding: 8px 18px;
   border-radius: 25px;
@@ -75,100 +105,82 @@ body {
 }
 .header button:hover {
   background: #fff;
-  border: 1px solid #004aad;
+  border: 1px solid var(--accent);
 }
 
-/* Announcement box */
+/* ---------- CARDS / GRID ---------- */
+.announcement, .card, .club-card, .event-card {
+  background: var(--bg-card);
+  color: var(--text);
+  transition: 0.3s;
+}
+
 .announcement {
-  background: white;
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   margin-bottom: 25px;
 }
-.announcement h3 {
-  color: #004aad;
-}
-.announcement p {
-  color: #444;
-  font-size: 0.95em;
-}
 
-/* Dashboard cards grid */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 20px;
 }
+
 .card {
-  background: white;
   border-radius: 15px;
   padding: 25px 15px;
   text-align: center;
   box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-  transition: 0.3s;
   cursor: pointer;
 }
 .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-}
-.card i {
-  font-size: 32px;
-  color: #004aad;
-  margin-bottom: 10px;
-}
-.card h3 {
-  font-size: 1.1em;
-  color: #004aad;
+  transform: translateY(-5px);
 }
 
-/* CLUBS PAGE */
-#clubsPage {
-  display: none;
-  animation: fadeIn 0.6s ease;
+.card i {
+  font-size: 32px;
+  color: var(--accent);
+  margin-bottom: 10px;
 }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.clubs-container {
+
+/* ---------- CLUBS PAGE ---------- */
+.clubs-container, .events-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 20px;
 }
-.club-card {
-  background: white;
+
+.club-card, .event-card {
   border-radius: 15px;
   padding: 20px;
   text-align: center;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  transition: 0.3s;
 }
-.club-card:hover { transform: translateY(-5px); }
-.club-card h4 { color: #004aad; margin-bottom: 10px; }
-.club-card button {
-  background: #004aad;
+
+.club-card button, .event-card button {
+  background: var(--accent);
   color: white;
   border: none;
-  padding: 8px 15px;
-  border-radius: 25px;
+  padding: 7px 15px;
+  border-radius: 20px;
+  margin-top: 10px;
   cursor: pointer;
-  font-weight: 600;
 }
-.club-card button:hover { background: #003380; }
 
-/* Back button */
+/* ---------- BACK BUTTON ---------- */
 .back-btn {
   background: none;
   border: none;
-  color: #004aad;
+  color: var(--accent);
   font-size: 1em;
   cursor: pointer;
   margin-bottom: 15px;
   font-weight: 600;
 }
 
+/* ---------- FOOTER ---------- */
 footer {
   text-align: center;
   font-size: 0.8em;
@@ -180,14 +192,15 @@ footer {
 
 <body>
 
-<!-- Sidebar -->
+<!-- SIDEBAR -->
 <div class="sidebar">
   <i class="fas fa-bars"></i>
-  <i class="fas fa-home" onclick="showPage('home')"></i>
-  <i class="fas fa-users" onclick="showPage('clubs')"></i>
-  <i class="fas fa-calendar"></i>
-  <i class="fas fa-cog"></i>
+  <i class="fas fa-home" onclick="showPage('homePage')"></i>
+  <i class="fas fa-users" onclick="showPage('clubsPage')"></i>
+  <i class="fas fa-calendar" onclick="showPage('eventsPage')"></i>
+  <i class="fas fa-moon" onclick="toggleDarkMode()" title="Dark Mode"></i>
 </div>
+
 
 <!-- HOME PAGE -->
 <div class="main" id="homePage">
@@ -198,77 +211,97 @@ footer {
 
   <div class="announcement">
     <h3>📢 Announcement</h3>
-    <p>Welcome to Campus Connect! Stay updated on events, projects, and mentorship opportunities.</p>
+    <p>Welcome to Campus Connect! Stay updated on events, clubs, seniors & professors.</p>
   </div>
 
   <div class="grid">
-    <div class="card" onclick="showPage('clubs')">
-      <i class="fas fa-users"></i>
-      <h3>Clubs</h3>
+    <div class="card" onclick="showPage('clubsPage')">
+      <i class="fas fa-users"></i><h3>Clubs</h3>
     </div>
-    <div class="card">
-      <i class="fas fa-calendar-check"></i>
-      <h3>Events</h3>
+
+    <div class="card" onclick="showPage('eventsPage')">
+      <i class="fas fa-calendar-check"></i><h3>Events</h3>
     </div>
+
     <div class="card">
-      <i class="fas fa-user-graduate"></i>
-      <h3>Seniors</h3>
+      <i class="fas fa-user-graduate"></i><h3>Seniors</h3>
     </div>
+
     <div class="card">
-      <i class="fas fa-chalkboard-teacher"></i>
-      <h3>Professors</h3>
+      <i class="fas fa-chalkboard-teacher"></i><h3>Professors</h3>
     </div>
+
     <div class="card">
-      <i class="fas fa-tasks"></i>
-      <h3>Projects</h3>
+      <i class="fas fa-tasks"></i><h3>Projects</h3>
     </div>
   </div>
 
-  <footer>© 2025 Campus Connect | Design Thinking Project</footer>
+  <footer>© 2025 Campus Connect</footer>
 </div>
+
 
 <!-- CLUBS PAGE -->
 <div class="main" id="clubsPage">
-  <button class="back-btn" onclick="showPage('home')">← Back to Dashboard</button>
-
+  <button class="back-btn" onclick="showPage('homePage')">← Back</button>
   <h2>Campus Clubs</h2>
-  <p>Explore student clubs and join the ones that match your interests.</p>
 
   <div class="clubs-container">
-    <div class="club-card">
-      <h4>🎨 Art & Design Club</h4>
-      <p>Unleash your creativity through design and imagination.</p>
-      <button>Join</button>
+    <div class="club-card"><h4>🎨 Art Club</h4><p>Creativity & design.</p><button>Join</button></div>
+    <div class="club-card"><h4>💻 Tech Club</h4><p>Build & innovate.</p><button>Join</button></div>
+    <div class="club-card"><h4>📚 Literature Club</h4><p>Stories & poetry.</p><button>Join</button></div>
+    <div class="club-card"><h4>🎤 Cultural Club</h4><p>Music, dance, drama.</p><button>Join</button></div>
+    <div class="club-card"><h4>⚽ Sports Club</h4><p>Fitness & tournaments.</p><button>Join</button></div>
+  </div>
+
+  <footer>© 2025 Campus Connect</footer>
+</div>
+
+
+<!-- EVENTS PAGE -->
+<div class="main" id="eventsPage">
+  <button class="back-btn" onclick="showPage('homePage')">← Back</button>
+  <h2>Upcoming Events</h2>
+
+  <div class="events-container">
+    <div class="event-card">
+      <h4>💡 Hackathon 2025</h4>
+      <p>An exciting 24-hour tech event.</p>
+      <button>View Details</button>
     </div>
-    <div class="club-card">
-      <h4>💻 Tech Club</h4>
-      <p>Build, learn, and collaborate on innovative tech projects.</p>
-      <button>Join</button>
+
+    <div class="event-card">
+      <h4>📚 Book Fest</h4>
+      <p>Explore books & discussions.</p>
+      <button>View Details</button>
     </div>
-    <div class="club-card">
-      <h4>📚 Literature Club</h4>
-      <p>Participate in discussions, poetry, and creative writing.</p>
-      <button>Join</button>
+
+    <div class="event-card">
+      <h4>🎵 Cultural Night</h4>
+      <p>Music, dance & performances.</p>
+      <button>View Details</button>
     </div>
-    <div class="club-card">
-      <h4>⚽ Sports Club</h4>
-      <p>Stay active and compete in inter-college tournaments.</p>
-      <button>Join</button>
-    </div>
-    <div class="club-card">
-      <h4>🎤 Cultural Club</h4>
-      <p>Showcase your talent through music, dance, and drama.</p>
-      <button>Join</button>
+
+    <div class="event-card">
+      <h4>🎙 Guest Lecture</h4>
+      <p>Talk by an industry expert.</p>
+      <button>View Details</button>
     </div>
   </div>
 
-  <footer>© 2025 Campus Connect | Club Section</footer>
+  <footer>© 2025 Campus Connect</footer>
 </div>
 
+
 <script>
-function showPage(page) {
-  document.getElementById('homePage').style.display = page === 'home' ? 'block' : 'none';
-  document.getElementById('clubsPage').style.display = page === 'clubs' ? 'block' : 'none';
+/* PAGE SWITCHING */
+function showPage(pageID) {
+  document.querySelectorAll('.main').forEach(p => p.style.display = "none");
+  document.getElementById(pageID).style.display = "block";
+}
+
+/* DARK MODE */
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
 }
 </script>
 
